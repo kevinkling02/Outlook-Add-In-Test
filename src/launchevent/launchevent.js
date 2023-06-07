@@ -2,6 +2,9 @@
 * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
 * See LICENSE in the project root for license information.
 */
+Office.onReady(() => {
+  // If needed, Office.js is ready to be called
+});
 
 
 function onNewAppointmentComposeHandler(event) {
@@ -35,6 +38,7 @@ function onNewAppointmentComposeHandler(event) {
           console.error('Failed to insert HTML');
         }
       });
+
 }
 
 
@@ -44,3 +48,56 @@ function onNewAppointmentComposeHandler(event) {
 if (Office.context.platform === Office.PlatformType.PC || Office.context.platform == null) {
 Office.actions.associate("onNewAppointmentComposeHandler", onNewAppointmentComposeHandler);
 }
+
+
+function action(event) {
+   // Get a reference to the current message
+   const item = Office.context.mailbox.item;
+
+   // Write message property value to the task pane
+     // Get a reference to the current item
+ 
+     // Construct the HTML content
+     const htmlContent = `
+       <div style="background-color: #F0F0F0; padding: 10px;">
+         <h1>Agenda</h1>
+         <ul>
+           <li>Agenda Item 1</li>
+           <li>Agenda Item 2</li>
+           <li>Agenda Item 3</li>
+           <li>Agenda Item 4</li>
+         </ul>
+       </div>
+     `;
+ 
+     // Set the HTML content as the body
+     item.body.prependAsync(htmlContent, {coercionType: Office.CoercionType.Html,
+       asyncContext: {var3: 1, var4: 2} }, (result) => {
+       if (result.status === Office.AsyncResultStatus.Succeeded) {
+         console.log('HTML inserted successfully');
+       } else {
+         console.error('Failed to insert HTML');
+       }
+     });
+     
+
+  // Be sure to indicate when the add-in command function is complete
+  event.completed();
+}
+
+function getGlobal() {
+  return typeof self !== "undefined"
+    ? self
+    : typeof window !== "undefined"
+    ? window
+    : typeof global !== "undefined"
+    ? global
+    : undefined;
+}
+
+
+const g = getGlobal();
+
+// The add-in command functions need to be available in global scope
+g.action = action;
+
