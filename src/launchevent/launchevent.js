@@ -62,7 +62,7 @@ function onNewAppointmentComposeHandler(event) {
       </table>
     </div>
       `;
-  
+   
       // Set the HTML content as the body
       item.body.prependAsync(htmlContent, {coercionType: Office.CoercionType.Html,
         asyncContext: {var3: 1, var4: 2} }, (result) => {
@@ -72,6 +72,17 @@ function onNewAppointmentComposeHandler(event) {
           console.error('Failed to insert HTML');
         }
       });
+
+      // Notification
+      const message = {
+        type: Office.MailboxEnums.ItemNotificationMessageType.InformationalMessage,
+        message: "Agenda wurde automatisch hinzugefügt!",
+        icon: "Icon.80x80",
+        persistent: true,
+      };
+    
+      // Show a notification message
+      Office.context.mailbox.item.notificationMessages.replaceAsync("action", message);
 
 }
 

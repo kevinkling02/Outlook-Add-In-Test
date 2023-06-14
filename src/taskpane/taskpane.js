@@ -13,6 +13,7 @@ Office.onReady((info) => {
   }
 });
 
+ 
 
 
 
@@ -24,9 +25,9 @@ Office.onReady((info) => {
     const item = Office.context.mailbox.item;
   
     // Write message property value to the task pane
-      // Get a reference to the current item
+    // Get a reference to the current item
   
-      // Construct the HTML content
+    // Construct the HTML content
       const htmlContent = `
     <div style="background-color: #F0F0F0; padding: 10px;">
       <table style="width: 100%; border-collapse: collapse;">
