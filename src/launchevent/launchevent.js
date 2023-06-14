@@ -18,15 +18,49 @@ function onNewAppointmentComposeHandler(event) {
   
       // Construct the HTML content
       const htmlContent = `
-        <div style="background-color: #F0F0F0; padding: 10px;">
-          <h1>Agenda</h1>
-          <ul>
-            <li>Agenda Item 1</li>
-            <li>Agenda Item 2</li>
-            <li>Agenda Item 3</li>
-            <li>Agenda Item 4</li>
-          </ul>
-        </div>
+    <div style="background-color: #F0F0F0; padding: 10px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid #000; padding: 8px;">Topic</th>
+            <th style="border: 1px solid #000; padding: 8px;">Goal</th>
+            <th style="border: 1px solid #000; padding: 8px;">Additional Documents</th>
+            <th style="border: 1px solid #000; padding: 8px;">Responsible for Presentation</th>
+            <th style="border: 1px solid #000; padding: 8px;">Time Slot</th>
+          </tr>
+        </thead>
+        <tbody id="agendaTableBody">
+          <tr>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+            <td style="border: 1px solid #000; padding: 8px;" contenteditable="true"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
       `;
   
       // Set the HTML content as the body
@@ -48,56 +82,4 @@ function onNewAppointmentComposeHandler(event) {
 if (Office.context.platform === Office.PlatformType.PC || Office.context.platform == null) {
 Office.actions.associate("onNewAppointmentComposeHandler", onNewAppointmentComposeHandler);
 }
-
-
-function action(event) {
-   // Get a reference to the current message
-   const item = Office.context.mailbox.item;
-
-   // Write message property value to the task pane
-     // Get a reference to the current item
- 
-     // Construct the HTML content
-     const htmlContent = `
-       <div style="background-color: #F0F0F0; padding: 10px;">
-         <h1>Agenda</h1>
-         <ul>
-           <li>Agenda Item 1</li>
-           <li>Agenda Item 2</li>
-           <li>Agenda Item 3</li>
-           <li>Agenda Item 4</li>
-         </ul>
-       </div>
-     `;
- 
-     // Set the HTML content as the body
-     item.body.prependAsync(htmlContent, {coercionType: Office.CoercionType.Html,
-       asyncContext: {var3: 1, var4: 2} }, (result) => {
-       if (result.status === Office.AsyncResultStatus.Succeeded) {
-         console.log('HTML inserted successfully');
-       } else {
-         console.error('Failed to insert HTML');
-       }
-     });
-     
-
-  // Be sure to indicate when the add-in command function is complete
-  event.completed();
-}
-
-function getGlobal() {
-  return typeof self !== "undefined"
-    ? self
-    : typeof window !== "undefined"
-    ? window
-    : typeof global !== "undefined"
-    ? global
-    : undefined;
-}
-
-
-const g = getGlobal();
-
-// The add-in command functions need to be available in global scope
-g.action = action;
 
